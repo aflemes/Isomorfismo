@@ -14,6 +14,7 @@ public class Matcher {
     }
 
     private static boolean match(State state, Visitor visitor, AtomicInteger count) {
+        
         if (state.isSuccess()) {
             count.incrementAndGet();
             return visitor.visit(state.getMapping());

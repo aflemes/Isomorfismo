@@ -27,7 +27,12 @@ public class UllmannState extends State {
         this.targetVertexList = targetGraph.getVertexList();
         this.mapping = new HashMap<>();
 
-        M = generateMatrixM();
+        M = generateMatrixM(true);
+        
+        System.out.println("sourceGraph \n");
+        sourceGraph.printAdjacencyMatrix();
+        System.out.println("targetGraph \n");
+        targetGraph.printAdjacencyMatrix();
     }
 
     public UllmannState(UllmannState state) {
@@ -37,7 +42,7 @@ public class UllmannState extends State {
         this.sourceVertexList = state.sourceVertexList;
         this.targetVertexList = state.targetVertexList;
         this.mapping = new HashMap<>(state.mapping);
-
+        
         this.M = new int[state.M.length][state.M[0].length];
         for (int i = 0; i < state.M.length; i++) {
             System.arraycopy(state.M[i], 0, this.M[i], 0, state.M[i].length);
@@ -53,7 +58,8 @@ public class UllmannState extends State {
      *
      * @return M
      */
-    private int[][] generateMatrixM() {
+    private int[][] generateMatrixM(boolean lgMostraMatriz) {
+        String matriz = "";
         int row = sourceVertexList.size();
         int col = targetVertexList.size();
         int[][] M = new int[row][col];
@@ -63,8 +69,13 @@ public class UllmannState extends State {
                 M[i][j] = (sourceGraph.getVertexInDegree(i) <= targetGraph.getVertexInDegree(j) &&
                         sourceGraph.getVertexOutDegree(i) <= targetGraph.getVertexOutDegree(j))
                         ? 1 : 0;
+                
+                matriz+=M[i][j]+" ";                
             }
+            matriz+="\n";
         }
+        
+        if (lgMostraMatriz) System.out.println("M0 \n" + matriz);        
 
         return M;
     }
@@ -121,7 +132,7 @@ public class UllmannState extends State {
         int row = sourceVertexList.size();
         int col = targetVertexList.size();
         int len = mapping.size();
-
+        
         for (int i = len; i < row; ++i) {
             for (int j = 0; j < col; ++j) {
                 if (M[i][j] != 0) {
@@ -152,9 +163,10 @@ public class UllmannState extends State {
                             break;
                         }
                     }
-                }
-            }
+                }                
+            }            
         }
+        
     }
 
     @Override
@@ -193,7 +205,7 @@ public class UllmannState extends State {
 
     @Override
     public void backTrack(Pair<Integer, Integer> pair) {
-
+           printM();
     }
 
     @Override
@@ -252,5 +264,20 @@ public class UllmannState extends State {
         public Pair<Integer, Integer> nextPair() {
             return new Pair<>(sourceIndex, targetIndex);
         }
+    }
+    
+    public void printM(){
+        int row = sourceVertexList.size();
+        int col = targetVertexList.size();
+        String matrix = "";
+        
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                matrix+=M[i][j]+" ";
+            }
+            matrix+="\n";
+        }
+        
+        System.out.println(matrix);
     }
 }

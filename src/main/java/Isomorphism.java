@@ -16,8 +16,8 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Isomorphism {
     public static void main(String[] args) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException{
-        String sourceGraphPath = "datasets/test/isomorphism/source_graph.txt";
-        String targetGraphPath = "datasets/test/isomorphism/target_graph.txt";
+        String sourceGraphPath = "datasets/test/isomorphism/source_graph_1.txt";
+        String targetGraphPath = "datasets/test/isomorphism/target_graph_1.txt";
         
         MatchHelper.testIsomorphismAlgorithm(
                 targetGraphPath,

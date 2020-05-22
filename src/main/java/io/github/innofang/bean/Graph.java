@@ -115,6 +115,22 @@ public class Graph {
         }
         return matrix;
     }
+    
+    public void printAdjacencyMatrix(){
+        int vertexSize = vertexList.size();
+        int[][] matrix = new int[vertexSize][vertexSize];
+        String adjacencia = "";
+                
+        matrix = getAdjacencyMatrix(false);
+        
+        for (int i = 0; i < vertexSize; i++) {
+            for (int j = 0; j < vertexSize; j++) {
+                adjacencia+=matrix[i][j] + " ";
+            }
+            adjacencia+="\n";
+        }        
+        System.out.println(adjacencia);
+    }
 
     public int getVertexInDegree(int v) {
         ArrayList<Edge> inEdges = in.get(v);
